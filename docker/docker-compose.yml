@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  medication-service:
+   build: ../medication-service
+   ports:
+     - 3030
+
+  

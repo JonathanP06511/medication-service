@@ -1,0 +1,48 @@
+<definitions name="MedicationService"
+    targetNamespace="http://yournamespace/medication"
+    xmlns:tns="http://yournamespace/medication"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://yournamespace/medication">
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="GetMedicationRequest">
+        <wsdl:part name="id" type="xsd:int"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetMedicationResponse">
+        <wsdl:part name="name" type="xsd:string"/>
+        <wsdl:part name="dosage" type="xsd:string"/>
+        <wsdl:part name="quantity" type="xsd:int"/>
+    </wsdl:message>
+
+    <wsdl:portType name="MedicationPortType">
+        <wsdl:operation name="getMedication">
+            <wsdl:input message="tns:GetMedicationRequest"/>
+            <wsdl:output message="tns:GetMedicationResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="MedicationBinding" type="tns:MedicationPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getMedication">
+            <soap:operation soapAction="getMedication"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="MedicationService">
+        <wsdl:port name="MedicationPort" binding="tns:MedicationBinding">
+            <soap:address location="http://localhost:3000/soap/medicationService"/>
+        </wsdl:port>
+    </wsdl:service>
+</definitions>
